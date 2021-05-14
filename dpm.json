@@ -1,0 +1,16 @@
+{
+  "config": {
+    "host": "http://servatron:8000"
+  },
+  "package": {
+    "name": "collections",
+    "version": "0.0.1",
+    "author": "Alessandro Maclaine",
+    "url": "https://raw.githubusercontent.com/almdeno/collections/0.0.1/",
+    "license": "MIT",
+    "dependencies": [],
+    "externals": {
+      "testing/": "https://deno.land/std@0.95.0/testing/"
+    }
+  }
+}
