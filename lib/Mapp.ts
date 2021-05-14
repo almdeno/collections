@@ -46,4 +46,12 @@ export class Mapp<T, V> {
     forEach(fn: (value: V, key: T, map: Map<T, V>) => void): void {
         this.map.forEach(fn);
     }
+
+    toObject(): {[key: string]: any} {
+        const out: {[key: string]: any} = {};
+        for(const [key, val] of this.map.entries()) {
+            out[`${key}`] = val;
+        }
+        return out;
+    }
 }

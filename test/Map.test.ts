@@ -41,6 +41,12 @@ Deno.test("Mapp", async () => {
         assertEquals(['b', 'c', 'd'].includes(value), true);
     }
 
+    assertEquals(map.toObject(), {
+        'test2': 'b',
+        'test3': 'c',
+        'test4': 'd',
+    });
+
     map.clear();
     assertEquals(map.size, 0);
 });
