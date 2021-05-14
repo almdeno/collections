@@ -1,9 +1,9 @@
 import {assertEquals} from '../deps.ts';
-import {OptionalMap} from "../lib/OptionalMap.ts";
-import {Optional} from '../deps.ts'
+import {ResultMap} from '../lib/ResultMap.ts';
+import {Result, isOk, isErr, ifOk} from '../deps.ts'
 
-Deno.test("OptionalMap", async () => {
-    const map = new OptionalMap<string, string>();
+Deno.test("ResultMap", async () => {
+    const map = new ResultMap<string, string>();
     map.set('test1', 'a');
     map.set('test2', 'b');
     assertEquals(map.size, 2);
@@ -24,29 +24,33 @@ Deno.test("OptionalMap", async () => {
     assertEquals(Array.from(map.entries()).length, 4);
     assertEquals(Array.from(map.entries()), [['test1', 'a'], ['test2', 'b'], ['test3', 'c'], ['test4', 'd']]);
 
-    const opt1: Optional<string> = map.get('test1');
-    assertEquals(opt1.isEmpty(), false);
-    assertEquals(opt1.isPresent(), true);
+    const opt1: Result<string> = map.get('test1');
+    assertEquals(isOk(opt1), true);
+    assertEquals(isErr(opt1), false);
     let res = false;
-    opt1.ifPresent(() => res = true);
+    ifOk(opt1, () => res = true);
     assertEquals(res, true);
     let res2 = 'b';
-    opt1.ifPresent((val: string) => res2 = val);
+    ifOk(opt1, (val: string) => res2 = val);
     assertEquals(res2, 'a');
 
-    const opt2: Optional<string> = map.get('testc');
-    assertEquals(opt2.isEmpty(), true);
-    assertEquals(opt2.isPresent(), false);
+    const opt2: Result<string> = map.get('testc');
+    assertEquals(isOk(opt2), false);
+    assertEquals(isErr(opt2), true);
     res = false;
-    opt2.ifPresent(() => res = true);
+    ifOk(opt2, () => res = true);
     assertEquals(res, false);
 
     assertEquals(map.delete('test1'), true);
     assertEquals(map.has('test1'), false);
     assertEquals(map.size, 3);
-    const opt3: Optional<string> = map.get('test1');
-    assertEquals(opt3.isEmpty(), true);
-    assertEquals(opt3.isPresent(), false);
+
+    const opt3: Result<string> = map.get('test1');
+    assertEquals(isOk(opt3), false);
+    assertEquals(isErr(opt3), true);
+    res = false;
+    ifOk(opt2, () => res = true);
+    assertEquals(res, false);
 
     map.forEach((value: string, key: string) => {
         assertEquals(['test2', 'test3', 'test4'].includes(key), true);

@@ -5,5 +5,11 @@ export type {
 } from 'safety/mod.ts';
 
 export {
-    Optional
+    Optional,
+    Ok,
+    Err,
+    Exception,
+    isOk,
+    isErr,
+    ifOk
 } from 'safety/mod.ts';
