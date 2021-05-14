@@ -8,7 +8,12 @@
     "author": "Alessandro Maclaine",
     "url": "https://raw.githubusercontent.com/almdeno/collections/0.0.1/",
     "license": "MIT",
-    "dependencies": [],
+    "dependencies": [
+      {
+        "name": "safety",
+        "version": "0.0.2"
+      }
+    ],
     "externals": {
       "testing/": "https://deno.land/std@0.95.0/testing/"
     }
