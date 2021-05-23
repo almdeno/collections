@@ -1,7 +1,8 @@
 import {Mapp} from './Mapp.ts';
 import {Optional} from '../deps.ts';
+import {Objectable} from "./types.ts";
 
-export class OptionalMap<T, V> {
+export class OptionalMap<T, V> implements Objectable  {
     private map: Mapp<T, V> = new Mapp<T, V>();
 
     static get [Symbol.species]() { return OptionalMap; }

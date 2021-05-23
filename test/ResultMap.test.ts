@@ -1,6 +1,8 @@
 import {assertEquals} from '../deps.ts';
 import {ResultMap} from '../lib/ResultMap.ts';
 import {Result, isOk, isErr, ifOk} from '../deps.ts'
+import {OptionalMap} from "../lib/OptionalMap.ts";
+import {Mapp} from "../lib/Mapp.ts";
 
 Deno.test("ResultMap", async () => {
     const map = new ResultMap<string, string>();
@@ -70,4 +72,30 @@ Deno.test("ResultMap", async () => {
 
     map.clear();
     assertEquals(map.size, 0);
+});
+
+Deno.test("Mapp of Maps", async () => {
+    const map = new ResultMap<string, ResultMap<string, string>>();
+
+    const mapA = new ResultMap<string, string>();
+    mapA.set('test1', 'a');
+    mapA.set('test2', 'b');
+
+    const mapB = new ResultMap<string, string>();
+    mapB.set('test3', 'c');
+    mapB.set('test4', 'd');
+
+    map.set('a', mapA);
+    map.set('b', mapB);
+
+    assertEquals(map.toObject(), {
+        'a': {
+            'test1': 'a',
+            'test2': 'b'
+        },
+        'b': {
+            'test3': 'c',
+            'test4': 'd'
+        },
+    });
 });

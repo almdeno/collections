@@ -50,3 +50,29 @@ Deno.test("Mapp", async () => {
     map.clear();
     assertEquals(map.size, 0);
 });
+
+Deno.test("Mapp of Maps", async () => {
+    const map = new Mapp<string, Mapp<string, string>>();
+
+    const mapA = new Mapp<string, string>();
+    mapA.set('test1', 'a');
+    mapA.set('test2', 'b');
+
+    const mapB = new Mapp<string, string>();
+    mapB.set('test3', 'c');
+    mapB.set('test4', 'd');
+
+    map.set('a', mapA);
+    map.set('b', mapB);
+
+    assertEquals(map.toObject(), {
+        'a': {
+            'test1': 'a',
+            'test2': 'b'
+        },
+        'b': {
+            'test3': 'c',
+            'test4': 'd'
+        },
+    });
+});

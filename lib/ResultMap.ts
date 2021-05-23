@@ -1,5 +1,6 @@
 import {Mapp} from './Mapp.ts';
 import {Result, Ok, Err, Exception} from '../deps.ts';
+import {Objectable} from "./types.ts";
 
 export const MapMissingKeyException = new Exception({
     id: 'MAP_MISSING_ELEMENT',
@@ -9,7 +10,7 @@ export const MapMissingKeyException = new Exception({
     userMessageLong: `Map member get was called with key that doesn't not exist`,
 });
 
-export class ResultMap<T, V> {
+export class ResultMap<T, V> implements Objectable  {
     private map: Mapp<T, V> = new Mapp<T, V>();
 
     static get [Symbol.species]() { return ResultMap; }

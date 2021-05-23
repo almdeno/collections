@@ -1,4 +1,7 @@
-export class Mapp<T, V> {
+import {Objectable} from "./types.ts";
+import {isObjectable} from "./utilities.ts";
+
+export class Mapp<T, V> implements Objectable {
     private map: Map<T, V> = new Map<T, V>();
 
     static get [Symbol.species]() { return Mapp; }
@@ -50,7 +53,11 @@ export class Mapp<T, V> {
     toObject(): {[key: string]: any} {
         const out: {[key: string]: any} = {};
         for(const [key, val] of this.map.entries()) {
-            out[`${key}`] = val;
+            if(isObjectable(val)) {
+                out[`${key}`] = val.toObject();
+            } else {
+                out[`${key}`] = val;
+            }
         }
         return out;
     }
