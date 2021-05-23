@@ -1,6 +1,6 @@
 {
   "imports": {
-    "safety/": "https://raw.githubusercontent.com/almdeno/safety/0.0.3/",
+    "safety/": "https://raw.githubusercontent.com/almdeno/safety/0.0.4/",
     "testing/": "https://deno.land/std@0.95.0/testing/"
   }
 }
